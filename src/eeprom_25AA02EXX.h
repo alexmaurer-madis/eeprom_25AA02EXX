@@ -104,7 +104,7 @@ class EEPROM_25AA02EXX {
     uint8_t pageEnd;
     uint8_t totalPages;
     uint8_t currentPage;
-    size_t currentLen;
+    size_t lenToWrite;
     unsigned long lastWIPCheck;
   } _wo;
 };
