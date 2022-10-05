@@ -200,20 +200,20 @@ void EEPROM_25AA02EXX::_write_prepare(const uint8_t address, uint8_t *src,
 }
 
 void EEPROM_25AA02EXX::_next_write() {
-  uint16_t possibleToWrite =
+  uint16_t writableLen =
       ((_wo.currentPage + 1) * EEPROM_25AA02EXX_PAGE_SIZE) - _wo.currentAddress;
 
-  if (possibleToWrite < _wo.currentLen) {
-    const uint8_t prefix[2] = {EEPROM_25AA02EXX_WRITE, _wo.currentAddress};
-    spi_dev->write(_wo.src, possibleToWrite, prefix, 2);
+  const uint8_t prefix[2] = {EEPROM_25AA02EXX_WRITE, _wo.currentAddress};
 
-    _wo.currentAddress += possibleToWrite;
-    _wo.src += possibleToWrite;
-    _wo.currentLen -= possibleToWrite;
+  if (writableLen < _wo.currentLen) {
+    spi_dev->write(_wo.src, writableLen, prefix, 2);
+
+    _wo.currentAddress += writableLen;
+    _wo.src += writableLen;
+    _wo.currentLen -= writableLen;
     _wo.currentPage += 1;
 
   } else {
-    const uint8_t prefix[2] = {EEPROM_25AA02EXX_WRITE, _wo.currentAddress};
     spi_dev->write(_wo.src, _wo.currentLen, prefix, 2);
 
     _wo.currentPage += 1;
