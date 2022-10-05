@@ -1,0 +1,26 @@
+{
+  "name": "eeprom_25AA02EXX",
+  "version": "1.0.0",
+  "keywords": "MICROCHIP EEPROM SPI EUI-48 EUI-64",
+  "description": "Library to read and write Microchip SPI EEPROM 25AA02E48 or 25AA02E64",
+  "authors": {
+    "name": "Alexandre Maurer",
+    "url": "https://github.com/alexmaurer-madis",
+    "maintainer": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexmaurer-madis/eeprom_25AA02EXX"
+  },
+  "homepage": "https://github.com/alexmaurer-madis/eeprom_25AA02EXX",
+  "export": {
+    "exclude": []
+  },
+  "dependencies": {
+    "adafruit/Adafruit BusIO": "^1.13.2"
+  },
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": "*",
+  "headers": ["eeprom_25AA02EXX.h"]
+}
