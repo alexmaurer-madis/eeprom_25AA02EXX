@@ -42,7 +42,7 @@
 
 // BP1-BP0 bits are set with WRSR instruction and are nonvolatile
 // Factory-programmed Write protection (BP1=0, BP0=1).
-// This protect the upper 1/4 of the array (0xC0 to 0xFF)
+// This protects the upper 1/4 of the array (0xC0 to 0xFF)
 
 // Entire array of memory is writable
 #define EEPROM_25AA02EXX_PROTECT_NONE 0b0000

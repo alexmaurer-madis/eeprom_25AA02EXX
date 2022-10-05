@@ -1,5 +1,7 @@
 # 25AA02Exx 2k EEPROM Library (MIT License)
 
+Current master branch is still in beta.
+
 
 ## Compatibility and dependencies
 - Compatible with SPI EEPROM **25AA02E48** and **25AA02E64**.  
@@ -65,7 +67,10 @@ The remaining 1984 bits are available for application use.
 ---
 ## Write protection - array protection bits BP1-BP0 (non-volatile)
 
-The EEPROM is write protected with the external WP pin and the internal BP1-BP0 bits in Status Register.  
+The EEPROM is write protected with the external WP pin and the internal bits BP1-BP0 in Status Register.  
+Factory-programmed write protection bits BP1=0 and BP0=1, this protects the upper 1/4 of the array (0xC0 to 0xFF) where the EUI-48 or EUI-64 is stored.
+
+BP1-BP0 bits are non-volatile.
 
 
 |  BP1  |  BP0  | Array addresses write-protected           | Function call                                        |
@@ -77,16 +82,16 @@ The EEPROM is write protected with the external WP pin and the internal BP1-BP0 
 
 
 
-When using the function `simple_write(...)` don't forget to call `write_enable()` before each write attempt because the device reset the Write Latch after each write command.
-<br />
-<br />
-The following function does not require to call write_enable :
+When using the function `simple_write(...)` don't forget to call `write_enable()` before each write attempt because the device resets the Write Latch after each write command.  
+
+The following functions does not require to call `write_enable()` :
+- `write_status()`
 - `write()`
 - `begin_write()`
-- `write_status()`
+
 
 ---
-## Speed / timing
+## Speed and timing
 - SPI max clock frequency :
   - 5MHz @3V3 supply.
   - 10MHz @5V supply.
