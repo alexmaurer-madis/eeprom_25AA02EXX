@@ -88,13 +88,13 @@ At factory, the upper 1/4 of the array (0xC0 to 0xFF) is write protected (where 
 
 When using the function `simple_write(...)` (which is not blocking and which does not manage pagination), don't forget to call `write_enable()` before each write attempt because the device resets the Write Latch after each write command.  
 
-The following functions does not require callong `write_enable()` :
+The following functions does not require calling `write_enable()` :
 - `write_status()`
 - `write()`
 - `begin_write()`
 
 ## Speed and timing
 - SPI max clock frequency :
-  - 5MHz @3V3 supply (by default if not specified in the constructor).
+  - 5MHz @3V3 supply (speed by default if not specified in the constructor).
   - 10MHz @5V supply.
 - Device limitation of 5ms internal write cycle time.
