@@ -1,32 +1,39 @@
-# 25AA02Exx 2k EEPROM Library (MIT License)
+# 25AA02Exx 2k Microchip SPI EEPROM Library (MIT License)
 
 Current master branch is still in beta.
 
+Some examples will be soon published.
 
 ## Compatibility and dependencies
 - Compatible with SPI EEPROM **25AA02E48** and **25AA02E64**.  
 - Written for Arduino Framework.
 - Depends on [Adafruit_BusIO Library](https://github.com/adafruit/Adafruit_BusIO) (MIT License)
 
----
+## Synchronous write operation aka "blocking function"
+The ```write()``` function is programmed in such a way as to respect the paging of the memory (page boundaries).
+You can then easily write to any memory location without worrying about going over a page.
 
-## Asynchrone write operation
+This function is blocking during all the write cycles(s). If you cannot afford to wait that amount of time, you can
+use the ```begin_write()``` asynchronous function.
 
-This library offers you the possibility to do asynchronous write operation while taking care of page boundaries.
+## Asynchrone write operation aka "non blocking function"
+This library offers you the possibility to do asynchronous write operation while taking care of page boundaries (as the ```write()``` function does already).
 
 - To be able to use the asynchronous function `begin_write` you must pass a buffer to the constructor.
 - Choose a size for your buffer (up to 256) corresponding of your maximum data size you are willing to write in one call.
-- Call the function `process()` in your loop.
-- During the write operation, the function `is_write_in_progress()` return true.
+- In your loop(), add the call to the function `process()`.
+- The function `is_write_in_progress()` return true while a write is in progress.
 
 ```
 #include "eeprom_25aa02exx.h"
+
+#define EEPROM_CS_PIN 2
 
 uint8_t buffer[256];
 EEPROM_25AA02EXX eeprom = EEPROM_25AA02EXX(buffer, 256);
 
 void setup() {
-  eeprom.begin_SPI(cs_pin, &SPI);
+  eeprom.begin_SPI(EEPROM_CS_PIN);
 }
 
 loop() {
@@ -34,8 +41,6 @@ loop() {
 }
 ```
 
-
----
 ## EUI-48&trade; / EUI-64&trade;
 
 >EUI-48™ and EUI-64™ are globally unique identification numbers standardized and provided by the IEEE Registration Authority.
@@ -63,17 +68,14 @@ The remaining 1984 bits are available for application use.
 [Have a look at the Microchip application note TB3187](https://ww1.microchip.com/downloads/en/Appnotes/TB3187-Organizationally-Unique-Identifiers-for-Preprogrammed-EUI-48-and-EUI-64-Address-Devices-90003187.pdf)
 
 
+## Write protection - array protection bits BP1-BP0
 
----
-## Write protection - array protection bits BP1-BP0 (non-volatile)
+The EEPROM can be write protected with the external WP pin and the internal bits BP1-BP0 (in Status Register).  
+At factory, the upper 1/4 of the array (0xC0 to 0xFF) is write protected (where resides the EUI-48 or EUI-64).
 
-The EEPROM is write protected with the external WP pin and the internal bits BP1-BP0 in Status Register.  
-Factory-programmed write protection bits BP1=0 and BP0=1, this protects the upper 1/4 of the array (0xC0 to 0xFF) where the EUI-48 or EUI-64 is stored.
+**BP1-BP0 bits are non-volatile.**
 
-BP1-BP0 bits are non-volatile.
-
-
-|  BP1  |  BP0  | Array addresses write-protected           | Function call                                        |
+|  BP1  |  BP0  | Array addresses write-protected           | Function to call                                     |
 | :---: | :---: | ----------------------------------------- | ---------------------------------------------------- |
 |   0   |   0   | none                                      | write_status(EEPROM_25AA02EXX_PROTECT_NONE)          |
 |   0   |   1   | upper 1/4 (C0h to FFh) factory programmed | write_status(EEPROM_25AA02EXX_PROTECT_UPPER_QUARTER) |
@@ -82,17 +84,18 @@ BP1-BP0 bits are non-volatile.
 
 
 
-When using the function `simple_write(...)` don't forget to call `write_enable()` before each write attempt because the device resets the Write Latch after each write command.  
 
-The following functions does not require to call `write_enable()` :
+## write_enable() / write_disable()
+
+When using the function `simple_write(...)` (which is not blocking and which does not manage pagination), don't forget to call `write_enable()` before each write attempt because the device resets the Write Latch after each write command.  
+
+The following functions does not require callong `write_enable()` :
 - `write_status()`
 - `write()`
 - `begin_write()`
 
-
----
 ## Speed and timing
 - SPI max clock frequency :
-  - 5MHz @3V3 supply.
+  - 5MHz @3V3 supply (by default if not specified in the constructor).
   - 10MHz @5V supply.
-- 5ms Internal write cycle time (per page or byte).
+- Device limitation of 5ms internal write cycle time.
