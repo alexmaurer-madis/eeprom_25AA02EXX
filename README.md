@@ -16,12 +16,13 @@ You can then easily write to any memory location without worrying about going ov
 This function is blocking during all the write cycles(s). If you cannot afford to wait that amount of time, you can
 use the ```begin_write()``` asynchronous function.
 
-## Asynchrone write operation aka "non blocking function"
-This library offers you the possibility to do asynchronous write operation while taking care of page boundaries (as the ```write()``` function does already).
+## Asynchrone write operation aka "non-blocking function"
+This library offers you the possibility to do asynchronous write operation while taking care of page boundaries.  
+(as the ```write()``` function does already).
 
 - To be able to use the asynchronous function `begin_write` you must pass a buffer to the constructor.
-- Choose a size for your buffer (up to 256) corresponding of your maximum data size you are willing to write in one call.
-- In your loop(), add the call to the function `process()`.
+- Choose a size up to 256 corresponding of your maximum data size you are willing to write in one call.
+- In your loop(), add a call to the function `process()`.
 - The function `is_write_in_progress()` return true while a write is in progress.
 
 ```
@@ -81,8 +82,6 @@ At factory, the upper 1/4 of the array (0xC0 to 0xFF) is write protected (where 
 |   0   |   1   | upper 1/4 (C0h to FFh) factory programmed | write_status(EEPROM_25AA02EXX_PROTECT_UPPER_QUARTER) |
 |   1   |   0   | upper 1/2 (80h to FFh)                    | write_status(EEPROM_25AA02EXX_PROTECT_UPPER_HALF)    |
 |   1   |   1   | all (00h to FFh)                          | write_status(EEPROM_25AA02EXX_PROTECT_ALL)           |
-
-
 
 
 ## write_enable() / write_disable()
