@@ -13,7 +13,7 @@ Some examples will be soon published.
 The ```write()``` function is programmed in such a way as to respect the paging of the memory (page boundaries).
 You can then easily write to any memory location without worrying about going over a page.
 
-This function is blocking during all the write cycles(s). If you cannot afford to wait that amount of time, you can
+This function is blocking during all the write cycle(s). If you cannot afford to wait that amount of time, you can
 use the ```begin_write()``` asynchronous function.
 
 ## Asynchrone write operation aka "non-blocking function"
