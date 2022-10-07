@@ -22,7 +22,7 @@ EEPROM_25AA02EXX::EEPROM_25AA02EXX(uint8_t *buffer,
 }
 
 /**
- * @brief Initialize using hardware SPI.
+ * @brief Initialize using hardware SPI. Clock frequency 5MHz for 3V3 operation.
  *
  * @param cs_pin Pin to use for SPI chip select
  * @param theSPI Pointer to SPI instance
@@ -30,6 +30,22 @@ EEPROM_25AA02EXX::EEPROM_25AA02EXX(uint8_t *buffer,
  */
 bool EEPROM_25AA02EXX::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
   spi_dev = new Adafruit_SPIDevice(cs_pin, 5000000, SPI_BITORDER_MSBFIRST,
+                                   SPI_MODE0, theSPI);
+  return spi_dev->begin();
+}
+
+/**
+ * @brief Initialize using hardware SPI.
+ *
+ * @param cs_pin Pin to use for SPI chip select
+ * @param freq SPI Clock frequency in Hz (max 10MHz)
+ * @param theSPI Pointer to SPI instance
+ * @return true if initialization successful, otherwise false.
+ */
+bool EEPROM_25AA02EXX::begin_SPI(uint8_t cs_pin, uint32_t freq,
+                                 SPIClass *theSPI) {
+  assert(freq <= 10000000);
+  spi_dev = new Adafruit_SPIDevice(cs_pin, freq, SPI_BITORDER_MSBFIRST,
                                    SPI_MODE0, theSPI);
   return spi_dev->begin();
 }

@@ -65,6 +65,7 @@ class EEPROM_25AA02EXX {
   EEPROM_25AA02EXX(uint8_t *buffer, size_t writeBufferSize);
 
   bool begin_SPI(uint8_t cs_pin, SPIClass *theSPI = &SPI);
+  bool begin_SPI(uint8_t cs_pin, uint32_t freq, SPIClass *theSPI = &SPI);
 
   uint8_t read_status();
   void write_status(uint8_t bitProtection);
