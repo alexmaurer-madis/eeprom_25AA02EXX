@@ -48,11 +48,16 @@ loop() {
 >Both standards are composed of a 24-bit Organizationally Unique Identifier (OUI) followed by an Extension Identifier.
 >
 >Currently Microchip's OUIs assigned by the IEEE Registration Authority are : 
+>- 0x803428
+>- 0x608A10
+>- 0x682719
 >- 0x0004A3
->- 0x001EC0
->- 0xD88039
 >- 0x5410EC
+>- 0xD88039
+>- 0x001EC0
 >- though this will change as addresses are exhausted.
+
+[Check ouilookup.com](https://ouilookup.com/vendor/microchip-technology-inc)
 
 The 25AA02E48 is programmed at the factory with a 48-bit globally unique node address and the 25AA02E64 with a 64-bit one.  
 
