@@ -1,6 +1,6 @@
 {
   "name": "eeprom_25AA02EXX",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "keywords": "MICROCHIP EEPROM SPI EUI-48 EUI-64",
   "description": "Library to read and write Microchip SPI EEPROM 25AA02E48 or 25AA02E64",
   "authors": {
@@ -17,7 +17,7 @@
     "exclude": []
   },
   "dependencies": {
-    "adafruit/Adafruit BusIO": "^1.13.2"
+    "adafruit/Adafruit BusIO": "^1.14.1"
   },
   "license": "MIT",
   "frameworks": "arduino",
