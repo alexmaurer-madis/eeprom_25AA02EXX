@@ -8,6 +8,7 @@
 #include <Adafruit_BusIO_Register.h>
 #include <Adafruit_SPIDevice.h>
 #include <Arduino.h>
+#include <assert.h>
 
 #define EEPROM_25AA02EXX_MEMORY_SIZE 256
 #define EEPROM_25AA02EXX_PAGE_SIZE 16
@@ -60,7 +61,7 @@ enum class EEPROM_25AA02EXX_EUI_Format {
 };
 
 class EEPROM_25AA02EXX {
- public:
+public:
   EEPROM_25AA02EXX();
   EEPROM_25AA02EXX(uint8_t *buffer, size_t writeBufferSize);
 
@@ -86,10 +87,10 @@ class EEPROM_25AA02EXX {
 
   void process(void);
 
- protected:
-  Adafruit_SPIDevice *spi_dev = NULL;  ///< Pointer to SPI bus interface
+protected:
+  Adafruit_SPIDevice *spi_dev = NULL; ///< Pointer to SPI bus interface
 
- private:
+private:
   uint8_t *_writeBuffer = nullptr;
   size_t _writeBufferSize = 0;
 
