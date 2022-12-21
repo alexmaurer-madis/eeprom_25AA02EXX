@@ -1,8 +1,8 @@
+
 # 25AA02Exx 2k Microchip SPI EEPROM Library (MIT License)
+<img src="https://img.shields.io/github/license/alexmaurer-madis/eeprom_25AA02EXX" /> <img src="https://img.shields.io/github/v/release/alexmaurer-madis/eeprom_25AA02EXX" />  
 
-Current master branch is still in beta.
-
-Some examples will be soon published.
+More examples will be published soon.
 
 ## Compatibility and dependencies
 - Compatible with SPI EEPROM **25AA02E48** and **25AA02E64**.  
